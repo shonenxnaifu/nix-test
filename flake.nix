@@ -12,7 +12,7 @@
   }:
   {
     # nixos-server adalah hostname
-    nixosConfiguration.nixos-server = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos-server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
