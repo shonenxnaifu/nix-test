@@ -2,7 +2,7 @@
 
 {
   home.username = "vboxuser";
-  home.homeDirectory = "/home/vboxuser/";
+  home.homeDirectory = "/home/vboxuser";
 
   home.packages = with pkgs; [
     ripgrep
