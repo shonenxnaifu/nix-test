@@ -13,7 +13,7 @@
     settings = {
       AllowUsers = [ "vboxuser" ];
       PermitRootLogin = "no";
-      LogLevel = "VERBOSE"
+      LogLevel = "VERBOSE";
     };
   };
 
@@ -34,7 +34,7 @@
     jails = {
         sshd.settings = {
             port = "222";
-            mode = "aggressive"
+            mode = "aggressive";
         };
     };
   };
