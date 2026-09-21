@@ -68,11 +68,6 @@
   #     tree
   #   ];
   # };
-  users.users.vboxuser = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    initialPassword = "qwerty123";
-  };
 
   # programs.firefox.enable = true;
 
@@ -85,8 +80,14 @@
   environment.systemPackages = with pkgs; [
     curl
     git
-    neovim
     wget
+
+    # for neovim
+    neovim
+    gcc
+    tree-sitter
+    gnutar
+    nodejs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -101,15 +102,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  services.openssh = {
-    enable = true;
-    ports = [
-      222
-    ];
-    settings = {
-      PermitRootLogin = "no";
-    };
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
