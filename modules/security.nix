@@ -12,6 +12,8 @@
     ];
     settings = {
       AllowUsers = [ "vboxuser" ];
+      KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
       PermitRootLogin = "no";
       LogLevel = "VERBOSE";
     };
