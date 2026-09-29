@@ -38,13 +38,13 @@
 
   programs.niri.enable = true;
   
-  environment.etc."wayland-sessions/niri.desktop".text = ''
-    [Desktop Entry]
-    Name=Niri
-    Comment=A scrollable-tiling Wayland compositor
-    Exec=niri-session
-    Type=Application
-  '';
+  # environment.etc."wayland-sessions/niri.desktop".text = ''
+  #  [Desktop Entry]
+  #  Name=Niri
+  #  Comment=A scrollable-tiling Wayland compositor
+  #  Exec=niri-session
+  #  Type=Application
+  # '';
 
 
   security.polkit.enable = true;
