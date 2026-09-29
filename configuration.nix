@@ -58,14 +58,19 @@
 
   xdg.portal = {
     enable = true;
+    # xdgOpenUsePortal = true;
+    # config.common.default = "*";
     wlr.enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
-  services.xserver.enable = false;
+  services.xserver.enable = true;
   # services.displayManager.gdm.enable = false;
   # services.displayManager.ly.enable = true;
-  programs.xwayland.enable = true;
+  # services.displayManager.sddm = {
+  #  enable = true;
+  #  wayland.enable = true;
+  # };
 
   # Nvidia RTX 3060 Setup
   # services.xserver.videoDrivers = [ "nvidia" ];
