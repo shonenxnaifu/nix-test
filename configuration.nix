@@ -63,8 +63,9 @@
   };
 
   services.xserver.enable = false;
-  services.displayManager.gdm.enable = false;
-  services.displayManager.ly.enable = true;
+  # services.displayManager.gdm.enable = false;
+  # services.displayManager.ly.enable = true;
+  programs.xwayland.enable = true;
 
   # Nvidia RTX 3060 Setup
   # services.xserver.videoDrivers = [ "nvidia" ];
