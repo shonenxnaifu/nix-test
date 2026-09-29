@@ -62,8 +62,9 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
 
-  services.xserver.enable = true;
-  services.displayManager.gdm.enable = true;
+  services.xserver.enable = false;
+  services.displayManager.gdm.enable = false;
+  services.displayManager.ly.enable = true;
 
   # Nvidia RTX 3060 Setup
   # services.xserver.videoDrivers = [ "nvidia" ];

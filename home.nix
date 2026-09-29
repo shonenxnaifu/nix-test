@@ -44,6 +44,7 @@
     };
 
     noctalia = {
+      systemd.enable = true;
       settings = {
         theme = {
           mode = "dark";
