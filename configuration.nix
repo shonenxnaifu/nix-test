@@ -57,24 +57,24 @@
   services.displayManager.gdm.enable = true;
 
   # Nvidia RTX 3060 Setup
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia = {
-    # Modesetting required untuk Wayland
-    modesetting.enable = true;
-
-    # Power management (optional)
-    powerManagement.enable = false;
-
-    # Use open source kernel module (recommended untuk RTX 30xx)
-    open = true;
-
-    # nvidia-settings GUI
-    nvidiaSettings = true;
-
-    # Driver package (stable)
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+  # hardware.nvidia = {
+  #  # Modesetting required untuk Wayland
+  #  modesetting.enable = true;
+  #
+  #  # Power management (optional)
+  #  powerManagement.enable = false;
+  #
+  #  # Use open source kernel module (recommended untuk RTX 30xx)
+  #  open = true;
+  #
+  #  # nvidia-settings GUI
+  #  nvidiaSettings = true;
+  #
+  #  # Driver package (stable)
+  #  package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # };
 
   # Hardware graphics acceleration
   hardware.graphics = {
@@ -89,11 +89,11 @@
   };
 
   # Environment variables untuk Nvidia + Wayland
-  environment.sessionVariables = {
+   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    LIBVA_DRIVER_NAME = "nvidia";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-  };
+  #  LIBVA_DRIVER_NAME = "nvidia";
+  #  __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+   };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
