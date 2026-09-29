@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, noctalia, ... }:
 
 {
   imports =
@@ -11,6 +11,8 @@
 
       ./modules/security.nix
       ./modules/users.nix
+
+      noctalia.nixosModules.default
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -18,7 +20,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
-  networking.hostName = "nixos-server";
+  networking.hostName = "nixos-pc";
 
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
@@ -26,6 +28,75 @@
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
   time.timeZone = "Asia/Jakarta";
+
+  programs.noctalia = {
+    enable = true;
+    recommendedServices.enable = true;
+  };
+
+  programs.niri.enable = true;
+
+  security.polkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  };
+
+  services.xserver = {
+    enable = true;
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
+  };
+
+  # Nvidia RTX 3060 Setup
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    # Modesetting required untuk Wayland
+    modesetting.enable = true;
+
+    # Power management (optional)
+    powerManagement.enable = false;
+
+    # Use open source kernel module (recommended untuk RTX 30xx)
+    open = true;
+
+    # nvidia-settings GUI
+    nvidiaSettings = true;
+
+    # Driver package (stable)
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # Hardware graphics acceleration
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;  # Untuk 32-bit apps
+  };
+
+  virtualisation.virtualbox.guest = {
+    enable = true;
+    dragAndDrop = true;
+    clipboard = true;
+  };
+
+  # Environment variables untuk Nvidia + Wayland
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    LIBVA_DRIVER_NAME = "nvidia";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -84,13 +155,23 @@
     curl
     git
     wget
-
-    # for neovim
-    neovim
-    gcc
-    tree-sitter
-    gnutar
+    vim
     nodejs
+    
+    # Wayland
+    wl-clipboard
+    grim
+    slurp
+    brightnessctl
+    pamixer
+    networkmanagerapplet
+    
+    # for neovim
+    # neovim
+    # gcc
+    # tree-sitter
+    # gnutar
+    # nodejs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -137,9 +218,17 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
   # Enable flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+  };
+
+  hardware.bluetooth.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;  
 }
 
