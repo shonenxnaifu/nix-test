@@ -226,6 +226,10 @@
 
   hardware.bluetooth.enable = true;
   services.power-profiles-daemon.enable = true;
-  services.upower.enable = true;  
+  services.upower.enable = true; 
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+  
 }
 
